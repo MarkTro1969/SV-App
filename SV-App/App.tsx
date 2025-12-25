@@ -1,0 +1,45 @@
+import React, { useState, useEffect } from 'react';
+import { Screen } from './types';
+import { Header } from './components/Header';
+import { Dashboard } from './components/Dashboard';
+import { SmartChat } from './components/SmartChat';
+import { KnowledgeBase } from './components/KnowledgeBase';
+import { ContactOptions } from './components/ContactOptions';
+import { Feedback } from './components/Feedback';
+
+export default function App() {
+  // Initialize state from localStorage if available
+  const [currentScreen, setCurrentScreen] = useState<Screen>(() => {
+    const saved = localStorage.getItem('sv_current_screen');
+    return (saved as Screen) || Screen.DASHBOARD;
+  });
+
+  // Save screen choice whenever it changes
+  useEffect(() => {
+    localStorage.setItem('sv_current_screen', currentScreen);
+  }, [currentScreen]);
+
+  const handleBack = () => setCurrentScreen(Screen.DASHBOARD);
+
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case Screen.DASHBOARD: return <Dashboard setScreen={setCurrentScreen} />;
+      case Screen.SMART_CHAT: return <SmartChat />;
+      case Screen.KNOWLEDGE_BASE: return <KnowledgeBase />;
+      case Screen.CONTACT: return <ContactOptions />;
+      case Screen.FEEDBACK: return <Feedback onComplete={handleBack} />;
+      default: return <Dashboard setScreen={setCurrentScreen} />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-100 flex justify-center">
+      <div className="w-full max-w-2xl bg-white min-h-screen shadow-2xl flex flex-col relative">
+        <Header currentScreen={currentScreen} onBack={handleBack} />
+        <main className="flex-1 relative overflow-hidden flex flex-col">
+          {renderScreen()}
+        </main>
+      </div>
+    </div>
+  );
+}
