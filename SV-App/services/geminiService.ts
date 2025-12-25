@@ -2,19 +2,16 @@ import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { SYSTEM_INSTRUCTION } from "../constants";
 import { Message } from "../types";
 
-const getApiKey = () => {
-  return process.env.API_KEY;
-};
-
 export const generateSupportResponse = async (
   history: Message[],
   currentMessage: string,
   currentMedia?: { mimeType: string; data: string }
 ): Promise<string> => {
-  const apiKey = getApiKey();
+  // Vite replaces process.env.API_KEY during build as configured in vite.config.ts
+  const apiKey = process.env.API_KEY;
   
-  if (!apiKey || apiKey === "undefined") {
-    console.error("API Key is missing. Check Vercel Environment Variables.");
+  if (!apiKey || apiKey === "undefined" || apiKey === "") {
+    console.error("API Key is missing. Ensure API_KEY is set in Vercel Environment Variables.");
     return "The assistant is currently initializing. Please call SoundVision support at 704-696-2792 for immediate help.";
   }
 
@@ -41,7 +38,7 @@ export const generateSupportResponse = async (
     }
 
     const response: GenerateContentResponse = await ai.models.generateContent({
-      model: 'gemini-3-pro-preview',
+      model: 'gemini-3-flash-preview',
       contents: { parts },
       config: { 
         systemInstruction: SYSTEM_INSTRUCTION, 
