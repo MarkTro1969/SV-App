@@ -1,30 +1,24 @@
-import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 import { SYSTEM_INSTRUCTION } from "../constants";
 import { Message } from "../types";
-
-// Tell TypeScript that process.env will be defined by Vite at build time
-declare const process: {
-  env: {
-    API_KEY: string;
-  };
-};
 
 export const generateSupportResponse = async (
   history: Message[],
   currentMessage: string,
   currentMedia?: { mimeType: string; data: string }
 ): Promise<string> => {
-  // Vite replaces process.env.API_KEY during build as configured in vite.config.ts
+  // Vite replaces this string at build time with your real key from Vercel
   const apiKey = process.env.API_KEY;
   
   if (!apiKey || apiKey === "undefined" || apiKey === "") {
-    console.error("API Key is missing. Ensure API_KEY is set in Vercel Environment Variables.");
-    return "The assistant is currently initializing. Please call SoundVision support at 704-696-2792 for immediate help.";
+    console.error("Critical Error: API_KEY is not defined in the build environment.");
+    return "The assistant is still setting up its secure connection. Please wait a moment and refresh, or call SoundVision support at 704-696-2792 for immediate help.";
   }
 
   try {
     const ai = new GoogleGenAI({ apiKey });
     
+    // Prepare conversation context for the AI
     const recentHistory = history
       .slice(-6)
       .map(m => `${m.role === 'user' ? 'Customer' : 'Assistant'}: ${m.text}`)
@@ -35,6 +29,7 @@ export const generateSupportResponse = async (
       { text: `Current Customer Inquiry: ${currentMessage}` }
     ];
 
+    // Handle photo attachments if present
     if (currentMedia) {
       parts.push({
         inlineData: {
@@ -44,7 +39,7 @@ export const generateSupportResponse = async (
       });
     }
 
-    const response: GenerateContentResponse = await ai.models.generateContent({
+    const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: { parts },
       config: { 
