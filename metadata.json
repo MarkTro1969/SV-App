@@ -1,0 +1,8 @@
+{
+  "name": "SoundVision Service App",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "description": ""
+}
