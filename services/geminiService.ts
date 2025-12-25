@@ -7,18 +7,17 @@ export const generateSupportResponse = async (
   currentMessage: string,
   currentMedia?: { mimeType: string; data: string }
 ): Promise<string> => {
-  // Vite replaces this string at build time with your real key from Vercel
+  // Vite will replace this with your actual key during the 'npm run build' step on Vercel.
   const apiKey = process.env.API_KEY;
   
   if (!apiKey || apiKey === "undefined" || apiKey === "") {
-    console.error("Critical Error: API_KEY is not defined in the build environment.");
-    return "The assistant is still setting up its secure connection. Please wait a moment and refresh, or call SoundVision support at 704-696-2792 for immediate help.";
+    console.error("Connection Error: API_KEY not found in build environment.");
+    return "I am currently unable to establish a secure connection to the AI. Please ensure the API_KEY is set in your Vercel project settings and that you have performed a 'Redeploy'. If you need immediate help, call SoundVision at 704-696-2792.";
   }
 
   try {
     const ai = new GoogleGenAI({ apiKey });
     
-    // Prepare conversation context for the AI
     const recentHistory = history
       .slice(-6)
       .map(m => `${m.role === 'user' ? 'Customer' : 'Assistant'}: ${m.text}`)
@@ -29,7 +28,6 @@ export const generateSupportResponse = async (
       { text: `Current Customer Inquiry: ${currentMessage}` }
     ];
 
-    // Handle photo attachments if present
     if (currentMedia) {
       parts.push({
         inlineData: {
