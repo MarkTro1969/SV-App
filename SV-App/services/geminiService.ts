@@ -2,11 +2,6 @@ import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { SYSTEM_INSTRUCTION } from "../constants";
 import { Message } from "../types";
 
-/**
- * Retrieves the API key. 
- * Because we added the 'define' block to vite.config.ts, 
- * process.env.API_KEY is replaced with the real key during the Vercel build.
- */
 const getApiKey = () => {
   return process.env.API_KEY;
 };
@@ -20,13 +15,12 @@ export const generateSupportResponse = async (
   
   if (!apiKey || apiKey === "undefined") {
     console.error("API Key is missing. Check Vercel Environment Variables.");
-    return "The assistant is currently in maintenance mode. Please call SoundVision support at 704-696-2792 for immediate help.";
+    return "The assistant is currently initializing. Please call SoundVision support at 704-696-2792 for immediate help.";
   }
 
   try {
     const ai = new GoogleGenAI({ apiKey });
     
-    // Provide the last 6 messages for context so the AI remembers the conversation
     const recentHistory = history
       .slice(-6)
       .map(m => `${m.role === 'user' ? 'Customer' : 'Assistant'}: ${m.text}`)
@@ -37,18 +31,17 @@ export const generateSupportResponse = async (
       { text: `Current Customer Inquiry: ${currentMessage}` }
     ];
 
-    // If a photo was attached, include it in the request
     if (currentMedia) {
       parts.push({
         inlineData: {
           mimeType: currentMedia.mimeType,
-          data: currentMedia.data.split(',')[1] // Strip the base64 header
+          data: currentMedia.data.split(',')[1]
         }
       });
     }
 
     const response: GenerateContentResponse = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-3-pro-preview',
       contents: { parts },
       config: { 
         systemInstruction: SYSTEM_INSTRUCTION, 
