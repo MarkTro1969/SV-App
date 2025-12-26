@@ -1,17 +1,17 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { SYSTEM_INSTRUCTION } from "../constants";
 import { Message } from "../types";
 
 /**
  * Handles communication with the Gemini AI model.
- * Uses gemini-3-pro-preview for advanced technical troubleshooting.
+ * Uses gemini-2.0-flash-exp for advanced technical troubleshooting.
  */
 export const generateSupportResponse = async (
   history: Message[],
   currentMessage: string,
   currentMedia?: { mimeType: string; data: string }
 ): Promise<string> => {
-  const apiKey = process.env.API_KEY;
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   
   if (!apiKey || apiKey === "undefined" || apiKey === "") {
     console.error("Gemini API Error: API_KEY is missing from the environment.");
@@ -19,19 +19,26 @@ export const generateSupportResponse = async (
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const genAI = new GoogleGenerativeAI(apiKey);
+    
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-2.0-flash-exp',
+      systemInstruction: SYSTEM_INSTRUCTION
+    });
     
     // Gemini history must alternate User -> Model.
-    // We filter out the generic welcome message to ensure a clean start.
+    // Filter out the generic welcome message to ensure a clean start.
     const contents: any[] = history
       .filter(m => m.id !== '1')
       .map(m => ({
         role: m.role === 'user' ? 'user' : 'model',
         parts: [{ text: m.text }]
       }));
-
+    
     // Add current user prompt
-    const userParts: any[] = [{ text: currentMessage || "Please assist based on this information." }];
+    const userParts: any[] = [{ 
+      text: currentMessage || "Please assist based on this information." 
+    }];
     
     // Handle image attachments if present
     if (currentMedia) {
@@ -42,26 +49,27 @@ export const generateSupportResponse = async (
         }
       });
     }
-
+    
     contents.push({ role: 'user', parts: userParts });
-
-    // Request response from Pro model with a thinking budget for complex logic
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-pro-preview',
+    
+    // Generate response
+    const result = await model.generateContent({
       contents,
-      config: { 
-        systemInstruction: SYSTEM_INSTRUCTION,
+      generationConfig: {
         temperature: 0.7,
-        thinkingConfig: { thinkingBudget: 4096 }
+        maxOutputTokens: 2048,
       }
     });
-
-    const resultText = response.text;
+    
+    const response = await result.response;
+    const resultText = response.text();
+    
     if (!resultText) {
       throw new Error("Empty response from Gemini API");
     }
-
+    
     return resultText;
+    
   } catch (err) {
     console.error("Gemini Support Service Error:", err);
     return "I'm having a brief connection issue. Please try again in a moment or call our support line directly at 704-696-2792.";
