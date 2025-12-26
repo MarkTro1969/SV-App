@@ -11,7 +11,7 @@ export const generateSupportResponse = async (
   currentMessage: string,
   currentMedia?: { mimeType: string; data: string }
 ): Promise<string> => {
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  const apiKey = (window as any).VITE_GEMINI_API_KEY;
   
   if (!apiKey || apiKey === "undefined" || apiKey === "") {
     console.error("Gemini API Error: API_KEY is missing from the environment.");
