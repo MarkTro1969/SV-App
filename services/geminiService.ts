@@ -21,8 +21,8 @@ export const generateSupportResponse = async (
   try {
     const ai = new GoogleGenAI({ apiKey });
     
-    // Construct valid Gemini history (User -> Model turns)
-    // We filter out the welcome message (ID: '1') to start the history with a clean User turn
+    // Gemini history must alternate User -> Model.
+    // We filter out the generic welcome message to ensure a clean start.
     const contents: any[] = history
       .filter(m => m.id !== '1')
       .map(m => ({
@@ -30,34 +30,35 @@ export const generateSupportResponse = async (
         parts: [{ text: m.text }]
       }));
 
-    // Add current user prompt (text + optional image)
-    const userParts: any[] = [{ text: currentMessage || "Check this image." }];
+    // Add current user prompt
+    const userParts: any[] = [{ text: currentMessage || "Please assist based on this information." }];
+    
+    // Handle image attachments if present
     if (currentMedia) {
       userParts.push({
         inlineData: {
           mimeType: currentMedia.mimeType,
-          data: currentMedia.data.split(',')[1] // Remove data:image/xxx;base64, prefix
+          data: currentMedia.data.split(',')[1] // Strip base64 metadata prefix
         }
       });
     }
 
     contents.push({ role: 'user', parts: userParts });
 
-    // Call the Pro model for technical reasoning
+    // Request response from Pro model with a thinking budget for complex logic
     const response = await ai.models.generateContent({
       model: 'gemini-3-pro-preview',
       contents,
       config: { 
         systemInstruction: SYSTEM_INSTRUCTION,
         temperature: 0.7,
-        // High-end AV troubleshooting requires "thinking" to handle complex logic
         thinkingConfig: { thinkingBudget: 4096 }
       }
     });
 
     const resultText = response.text;
     if (!resultText) {
-      throw new Error("No response text returned from AI");
+      throw new Error("Empty response from Gemini API");
     }
 
     return resultText;
