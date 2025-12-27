@@ -11,7 +11,7 @@ export const generateSupportResponse = async (
   currentMessage: string,
   currentMedia?: { mimeType: string; data: string }
 ): Promise<string> => {
-  const apiKey = (window as any).VITE_GEMINI_API_KEY;
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   
   if (!apiKey || apiKey === "undefined" || apiKey === "") {
     console.error("Gemini API Error: API_KEY is missing from the environment.");
@@ -75,3 +75,4 @@ export const generateSupportResponse = async (
     return "I'm having a brief connection issue. Please try again in a moment or call our support line directly at 704-696-2792.";
   }
 };
+
