@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { generateSupportResponse } from '../services/geminiService';
+import { generateSupportResponse } from '../services/claudeService';
 import { Message } from '../types';
 
 export const SmartChat: React.FC = () => {
