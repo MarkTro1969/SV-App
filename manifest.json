@@ -5,12 +5,16 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3DC2DB",
-  "icons": [
-    {
-      "src": "https://www.svavnc.com/wp-content/uploads/2021/03/cropped-SoundVision-Logo-Favicon-180x180.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+ "icons": [
+  {
+    "src": "/logo-192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "/logo-512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+]
 }
