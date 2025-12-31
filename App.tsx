@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Screen } from './types';
+import { Screen, SmartChatContext } from './types';
 import { Header } from './components/Header';
 import { Dashboard } from './components/Dashboard';
 import { SmartChat } from './components/SmartChat';
@@ -9,28 +9,40 @@ import { Feedback } from './components/Feedback';
 import ExpertHelpFAQ from './components/ExpertHelpFAQ';
 
 export default function App() {
-  // Initialize state from localStorage if available
   const [currentScreen, setCurrentScreen] = useState<Screen>(() => {
     const saved = localStorage.getItem('sv_current_screen');
     return (saved as Screen) || Screen.DASHBOARD;
   });
 
-  // Save screen choice whenever it changes
+  const [chatContext, setChatContext] = useState<SmartChatContext | null>(null);
+
   useEffect(() => {
     localStorage.setItem('sv_current_screen', currentScreen);
   }, [currentScreen]);
 
   const handleBack = () => setCurrentScreen(Screen.DASHBOARD);
 
+  const navigateToSmartChat = (context?: SmartChatContext) => {
+    setChatContext(context || null);
+    setCurrentScreen(Screen.SMART_CHAT);
+  };
+
   const renderScreen = () => {
     switch (currentScreen) {
-      case Screen.DASHBOARD: return <Dashboard setScreen={setCurrentScreen} />;
-      case Screen.SMART_CHAT: return <SmartChat />;
-      case Screen.KNOWLEDGE_BASE: return <KnowledgeBase />;
-      case Screen.CONTACT: return <ContactOptions />;
-      case Screen.FEEDBACK: return <Feedback onComplete={handleBack} />;
-      case Screen.HELP_FAQ: return <ExpertHelpFAQ setScreen={setCurrentScreen} />;
-      default: return <Dashboard setScreen={setCurrentScreen} />;
+      case Screen.DASHBOARD: 
+        return <Dashboard setScreen={setCurrentScreen} />;
+      case Screen.SMART_CHAT: 
+        return <SmartChat context={chatContext} onClearContext={() => setChatContext(null)} />;
+      case Screen.KNOWLEDGE_BASE: 
+        return <KnowledgeBase />;
+      case Screen.CONTACT: 
+        return <ContactOptions />;
+      case Screen.FEEDBACK: 
+        return <Feedback onComplete={handleBack} />;
+      case Screen.HELP_FAQ: 
+        return <ExpertHelpFAQ navigateToSmartChat={navigateToSmartChat} />;
+      default: 
+        return <Dashboard setScreen={setCurrentScreen} />;
     }
   };
 
