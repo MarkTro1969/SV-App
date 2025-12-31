@@ -1,8 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { generateSupportResponse } from '../services/claudeService';
-import { Message } from '../types';
+import { Message, SmartChatContext } from '../types';
 
-export const SmartChat: React.FC = () => {
+interface SmartChatProps {
+  context?: SmartChatContext | null;
+  onClearContext: () => void;
+}
+
+export const SmartChat: React.FC<SmartChatProps> = ({ context, onClearContext }) => {
   const [messages, setMessages] = useState<Message[]>(() => {
     const saved = localStorage.getItem('sv_chat_history');
     return saved ? JSON.parse(saved) : [
@@ -15,6 +20,28 @@ export const SmartChat: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<{ mimeType: string; data: string } | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Handle context from Help & FAQ
+  useEffect(() => {
+    if (context && context.device) {
+      const contextMessage = `I'm having issues with my ${context.device}. ${context.issue || 'I tried restarting it but it\'s still not working.'}`;
+      
+      // Add user message
+      const userMsg: Message = { 
+        id: Date.now().toString(), 
+        role: 'user', 
+        text: contextMessage
+      };
+      
+      setMessages(prev => [...prev, userMsg]);
+      
+      // Auto-send the message
+      handleSend(contextMessage);
+      
+      // Clear the context after using it
+      onClearContext();
+    }
+  }, [context]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -49,7 +76,10 @@ export const SmartChat: React.FC = () => {
       media: selectedImage || undefined
     };
 
-    setMessages(prev => [...prev, userMsg]);
+    // Only add message if it's not already added (for context auto-send)
+    if (!overrideText || !context) {
+      setMessages(prev => [...prev, userMsg]);
+    }
     
     setInput('');
     setSelectedImage(null);
