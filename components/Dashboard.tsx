@@ -37,7 +37,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ setScreen }) => {
           </div>
         </button>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <button
             onClick={() => setScreen(Screen.HELP_FAQ)}
             className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm hover:border-sv-teal transition-all text-left group active:scale-[0.95]"
@@ -62,19 +62,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ setScreen }) => {
             </div>
             <h3 className="text-lg font-bold text-sv-dark">Call Support</h3>
             <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-1">Direct Line</p>
-          </button>
-
-          <button
-            onClick={() => setScreen(Screen.KNOWLEDGE_BASE)}
-            className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm hover:border-sv-teal transition-all text-left group active:scale-[0.95]"
-          >
-            <div className="text-sv-teal mb-3 group-hover:scale-110 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-bold text-sv-dark">Help Guides</h3>
-            <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-1">Quick Fixes</p>
           </button>
         </div>
       </div>
