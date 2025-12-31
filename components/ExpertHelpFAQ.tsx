@@ -126,10 +126,63 @@ const ExpertHelpFAQ: React.FC = () => {
       id: 'smoke',
       category: 'SECURITY',
       categoryColor: '#E8F5E9',
-      question: 'Smoke detectors beeping',
+      question: 'My smoke detectors keep beeping. How do I make it stop?',
       content: (
         <div className="faq-content">
-          <p className="coming-soon">Troubleshooting guide coming soon...</p>
+          <div className="content-section">
+            <h3>Important: These are your electrical smoke detectors</h3>
+            <p>The beeping you're hearing is most likely from your home's hardwired electrical smoke detectors, not your security system smoke detectors. By National Electrical Code (NEC), these are all interconnected throughout your home and will chirp when the backup battery is low.</p>
+          </div>
+
+          <div className="content-section">
+            <p className="intro-text">Good news: This is an easy fix that takes about 15-20 minutes. And yes, it always seems to happen in the middle of the night!</p>
+          </div>
+
+          <div className="step-section">
+            <h4>Step 1: Replace ALL the 9-volt batteries</h4>
+            <ul>
+              <li>Walk through your entire home and count how many smoke detectors you have (write this number down!)</li>
+              <li>Purchase that many 9-volt batteries</li>
+              <li>Replace the battery in every single smoke detector, even if only one is beeping</li>
+              <li>Since they're interconnected, replacing just one won't stop the beeping</li>
+            </ul>
+            <div className="step-result success">
+              <strong>Pro tip:</strong> Write down the total number of smoke detectors you have. You'll thank yourself next year!
+            </div>
+          </div>
+
+          <div className="step-section">
+            <h4>Step 2: Set a reminder for next year</h4>
+            <ul>
+              <li>Add a calendar reminder for one year from today</li>
+              <li>Title it: "Replace ALL smoke detector batteries (you have [NUMBER] detectors)"</li>
+              <li>Include a note to buy [NUMBER] of 9-volt batteries before the reminder date</li>
+              <li>This prevents the dreaded 3 AM beeping next year</li>
+            </ul>
+            <div className="step-result">
+              <strong>Why do this?</strong> Replacing them all at once, every year, means you'll never be woken up by random beeping again.
+            </div>
+          </div>
+
+          <div className="step-section">
+            <h4>Step 3: Label the date (optional but helpful)</h4>
+            <ul>
+              <li>Use a small piece of masking tape or a label maker</li>
+              <li>Write today's date on each detector after replacing the battery</li>
+              <li>This helps you track when they were last changed</li>
+            </ul>
+          </div>
+
+          <div className="step-section contact-section">
+            <h4>Still beeping after replacing all batteries?</h4>
+            <p>If the beeping continues after you've replaced all the batteries:</p>
+            <ul>
+              <li>One of the detectors may need to be replaced entirely</li>
+              <li>There could be an issue with your electrical system</li>
+              <li>Contact an electrician for assistance</li>
+            </ul>
+            <p className="premium-feature">Note: These electrical smoke detectors are separate from any security system smoke detectors we may have installed.</p>
+          </div>
         </div>
       )
     }
