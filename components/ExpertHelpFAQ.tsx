@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ExpertHelpFAQ.css';
+import { Screen } from '../types';
 
 interface FAQItem {
   id: string;
@@ -9,7 +10,11 @@ interface FAQItem {
   content: JSX.Element;
 }
 
-const ExpertHelpFAQ: React.FC = () => {
+interface ExpertHelpFAQProps {
+  setScreen: (screen: Screen) => void;
+}
+
+const ExpertHelpFAQ: React.FC<ExpertHelpFAQProps> = ({ setScreen }) => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
 
@@ -340,7 +345,7 @@ const ExpertHelpFAQ: React.FC = () => {
                 <h4>Need more help?</h4>
                 <p>If these steps didn't resolve your issue, the problem might be more complex. We can help:</p>
                 <ul>
-                  <li>Use our <strong>Smart Assistant</strong> for advanced troubleshooting with photos</li>
+                  <li>Use our <button className="smart-assistant-link" onClick={() => setScreen(Screen.SMART_CHAT)}>Smart Assistant</button> for advanced troubleshooting with photos</li>
                   <li>Call our support team for immediate assistance</li>
                   <li className="premium-feature">Service members get priority support and scheduling</li>
                 </ul>
