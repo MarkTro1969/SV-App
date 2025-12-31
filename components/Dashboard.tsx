@@ -39,19 +39,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ setScreen }) => {
 
         <div className="grid grid-cols-2 gap-4">
           <button
-            onClick={() => setScreen(Screen.HELP_FAQ)}
-            className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm hover:border-sv-teal transition-all text-left group active:scale-[0.95]"
-          >
-            <div className="text-sv-teal mb-3 group-hover:scale-110 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-bold text-sv-dark">Help & FAQ</h3>
-            <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-1">Step by Step</p>
-          </button>
-
-          <button
             onClick={() => setScreen(Screen.CONTACT)}
             className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm hover:border-sv-teal transition-all text-left group active:scale-[0.95]"
           >
@@ -62,6 +49,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ setScreen }) => {
             </div>
             <h3 className="text-lg font-bold text-sv-dark">Call Support</h3>
             <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-1">Direct Line</p>
+          </button>
+
+          <button
+            onClick={() => setScreen(Screen.HELP_FAQ)}
+            className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm hover:border-sv-teal transition-all text-left group active:scale-[0.95]"
+          >
+            <div className="text-sv-teal mb-3 group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-bold text-sv-dark">Help & FAQ</h3>
+            <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-1">Step by Step</p>
           </button>
         </div>
       </div>
