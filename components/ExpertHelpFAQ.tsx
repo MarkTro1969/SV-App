@@ -23,6 +23,33 @@ const ExpertHelpFAQ: React.FC<ExpertHelpFAQProps> = ({ navigateToSmartChat }) =>
     setSelectedDevice(null);
   };
 
+  const getDeviceContext = (device: string): SmartChatContext => {
+    const deviceName = device === 'appletv' ? 'Apple TV' : device === 'roku' ? 'Roku' : 'LG TV';
+    
+    const troubleshootingSteps = {
+      'appletv': [
+        'Restarted Apple TV using Settings menu (Settings > System > Restart)',
+        'Tried restarting with remote (held Home + Menu buttons for 5-10 seconds)',
+        'Power cycled by unplugging for 30 seconds'
+      ],
+      'roku': [
+        'Restarted Roku using Settings menu (Settings > System > System restart)',
+        'Tried remote restart sequence (Home 5x, Up 1x, Rewind 2x, Fast Forward 2x)',
+        'Power cycled by unplugging for 30 seconds'
+      ],
+      'lgtv': [
+        'Quick restart with remote (held Power button for 5 seconds)',
+        'Full power cycle (unplugged for 60 seconds)',
+        'Checked TV input/source settings'
+      ]
+    };
+
+    return {
+      device: deviceName,
+      issue: `Customer has already tried these troubleshooting steps but the issue persists:\n${troubleshootingSteps[device as keyof typeof troubleshootingSteps].map((step, i) => `${i + 1}. ${step}`).join('\n')}\n\nThe device is still not working properly. Please provide advanced troubleshooting beyond these basic steps.`
+    };
+  };
+
   const renderDeviceInstructions = (device: string) => {
     switch(device) {
       case 'appletv':
@@ -347,10 +374,7 @@ const ExpertHelpFAQ: React.FC<ExpertHelpFAQProps> = ({ navigateToSmartChat }) =>
                 <ul>
                   <li>Use our <button 
                     className="smart-assistant-link" 
-                    onClick={() => navigateToSmartChat({ 
-                      device: selectedDevice === 'appletv' ? 'Apple TV' : selectedDevice === 'roku' ? 'Roku' : 'LG TV',
-                      issue: 'TV restart troubleshooting did not resolve the issue'
-                    })}
+                    onClick={() => navigateToSmartChat(getDeviceContext(selectedDevice))}
                   >Smart Assistant</button> for advanced troubleshooting with photos</li>
                   <li>Call our support team for immediate assistance</li>
                   <li className="premium-feature">Service members get priority support and scheduling</li>
@@ -486,3 +510,25 @@ const ExpertHelpFAQ: React.FC<ExpertHelpFAQProps> = ({ navigateToSmartChat }) =>
 };
 
 export default ExpertHelpFAQ;
+```
+
+---
+
+**What changed:**
+
+1. ✅ Added `getDeviceContext()` function that creates detailed context for each device
+2. ✅ Lists all the specific troubleshooting steps the customer has already completed
+3. ✅ Tells Claude to provide "advanced troubleshooting beyond these basic steps"
+4. ✅ Now when customer clicks "Smart Assistant", Claude receives:
+   - Device type (Apple TV, Roku, or LG TV)
+   - Complete list of steps already attempted
+   - Clear instruction not to repeat those steps
+
+**Example message sent to Smart Assistant:**
+```
+I'm having issues with my Apple TV. Customer has already tried these troubleshooting steps but the issue persists:
+1. Restarted Apple TV using Settings menu (Settings > System > Restart)
+2. Tried restarting with remote (held Home + Menu buttons for 5-10 seconds)
+3. Power cycled by unplugging for 30 seconds
+
+The device is still not working properly. Please provide advanced troubleshooting beyond these basic steps.
