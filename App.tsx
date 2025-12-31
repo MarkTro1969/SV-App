@@ -6,6 +6,7 @@ import { SmartChat } from './components/SmartChat';
 import { KnowledgeBase } from './components/KnowledgeBase';
 import { ContactOptions } from './components/ContactOptions';
 import { Feedback } from './components/Feedback';
+import ExpertHelpFAQ from './components/ExpertHelpFAQ';
 
 export default function App() {
   // Initialize state from localStorage if available
@@ -28,6 +29,7 @@ export default function App() {
       case Screen.KNOWLEDGE_BASE: return <KnowledgeBase />;
       case Screen.CONTACT: return <ContactOptions />;
       case Screen.FEEDBACK: return <Feedback onComplete={handleBack} />;
+      case Screen.HELP_FAQ: return <ExpertHelpFAQ />;
       default: return <Dashboard setScreen={setCurrentScreen} />;
     }
   };
