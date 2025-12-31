@@ -118,4 +118,72 @@ const ExpertHelpFAQ: React.FC = () => {
       question: 'Video (TV) issues',
       content: (
         <div className="faq-content">
-         <p className="coming-soon">Troubleshooting guide coming soon...</p>
+          <p className="coming-soon">Troubleshooting guide coming soon...</p>
+        </div>
+      )
+    },
+    {
+      id: 'smoke',
+      category: 'SECURITY',
+      categoryColor: '#E8F5E9',
+      question: 'Smoke detectors beeping',
+      content: (
+        <div className="faq-content">
+          <p className="coming-soon">Troubleshooting guide coming soon...</p>
+        </div>
+      )
+    }
+  ];
+
+  return (
+    <div className="expert-help-container">
+      <div className="content-wrapper">
+        <h2 className="page-title">Expert Help & FAQ</h2>
+        
+        <div className="faq-list">
+          {faqItems.map((item) => (
+            <div key={item.id} className="faq-item">
+              <button 
+                className={`faq-button ${expandedId === item.id ? 'expanded' : ''}`}
+                onClick={() => toggleFAQ(item.id)}
+              >
+                <div className="faq-header">
+                  <span 
+                    className="category-badge" 
+                    style={{ backgroundColor: item.categoryColor }}
+                  >
+                    {item.category}
+                  </span>
+                  <span className="question">{item.question}</span>
+                </div>
+                <svg 
+                  className={`chevron ${expandedId === item.id ? 'rotated' : ''}`}
+                  width="24" 
+                  height="24" 
+                  viewBox="0 0 24 24" 
+                  fill="none"
+                >
+                  <path 
+                    d="M6 9L12 15L18 9" 
+                    stroke="#4FC3F7" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              
+              {expandedId === item.id && (
+                <div className="faq-expanded">
+                  {item.content}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ExpertHelpFAQ;
