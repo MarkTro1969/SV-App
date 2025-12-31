@@ -11,9 +11,144 @@ interface FAQItem {
 
 const ExpertHelpFAQ: React.FC = () => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
 
   const toggleFAQ = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
+    setSelectedDevice(null); // Reset device selection when collapsing
+  };
+
+  const renderDeviceInstructions = (device: string) => {
+    switch(device) {
+      case 'appletv':
+        return (
+          <div className="device-instructions">
+            <h4>How to restart your Apple TV</h4>
+            
+            <div className="method-section">
+              <h5>Method 1: Using Settings (Recommended)</h5>
+              <ol>
+                <li>Go to <strong>Settings</strong> on your Apple TV</li>
+                <li>Select <strong>System</strong></li>
+                <li>Select <strong>Restart</strong></li>
+                <li>Wait for your Apple TV to restart (about 1-2 minutes)</li>
+              </ol>
+            </div>
+
+            <div className="method-section">
+              <h5>Method 2: Using the Remote</h5>
+              <ol>
+                <li>Press and hold the <strong>Home button</strong> (TV icon) and <strong>Menu button</strong> together</li>
+                <li>Hold for about 5-10 seconds until the light on your Apple TV starts flashing</li>
+                <li>Release the buttons and wait for restart</li>
+              </ol>
+            </div>
+
+            <div className="method-section">
+              <h5>Method 3: Unplug (Last Resort)</h5>
+              <ol>
+                <li>Unplug the Apple TV power cord from the outlet</li>
+                <li>Wait 10 seconds</li>
+                <li>Plug it back in</li>
+                <li>Wait for it to fully restart</li>
+              </ol>
+            </div>
+
+            <div className="step-result success">
+              <strong>Did this fix your issue?</strong> Great! You're all set.
+            </div>
+          </div>
+        );
+      
+      case 'roku':
+        return (
+          <div className="device-instructions">
+            <h4>How to restart your Roku</h4>
+            
+            <div className="method-section">
+              <h5>Method 1: Using Settings (Recommended)</h5>
+              <ol>
+                <li>Press the <strong>Home button</strong> on your Roku remote</li>
+                <li>Go to <strong>Settings</strong></li>
+                <li>Select <strong>System</strong></li>
+                <li>Select <strong>System restart</strong></li>
+                <li>Select <strong>Restart</strong> to confirm</li>
+                <li>Wait for your Roku to restart (about 1-2 minutes)</li>
+              </ol>
+            </div>
+
+            <div className="method-section">
+              <h5>Method 2: Using the Remote</h5>
+              <ol>
+                <li>Press the <strong>Home button</strong> 5 times</li>
+                <li>Press the <strong>Up arrow</strong> once</li>
+                <li>Press the <strong>Rewind button</strong> twice</li>
+                <li>Press the <strong>Fast Forward button</strong> twice</li>
+                <li>Your Roku will restart automatically</li>
+              </ol>
+            </div>
+
+            <div className="method-section">
+              <h5>Method 3: Unplug (Last Resort)</h5>
+              <ol>
+                <li>Unplug the Roku power cord from the outlet or TV</li>
+                <li>Wait 10 seconds</li>
+                <li>Plug it back in</li>
+                <li>Wait for it to fully restart</li>
+              </ol>
+            </div>
+
+            <div className="step-result success">
+              <strong>Did this fix your issue?</strong> Great! You're all set.
+            </div>
+          </div>
+        );
+      
+      case 'lgtv':
+        return (
+          <div className="device-instructions">
+            <h4>How to restart your LG TV</h4>
+            
+            <div className="method-section">
+              <h5>Method 1: Soft Reset (Quick Restart)</h5>
+              <ol>
+                <li>Press and hold the <strong>Power button</strong> on your remote</li>
+                <li>Keep holding until the TV turns off and back on</li>
+                <li>This takes about 5 seconds</li>
+              </ol>
+            </div>
+
+            <div className="method-section">
+              <h5>Method 2: Power Cycle (Recommended)</h5>
+              <ol>
+                <li>Turn off your TV using the remote</li>
+                <li>Unplug the TV power cord from the wall outlet</li>
+                <li>Wait 60 seconds (this clears the TV's memory)</li>
+                <li>Plug the power cord back in</li>
+                <li>Turn the TV back on</li>
+              </ol>
+            </div>
+
+            <div className="method-section">
+              <h5>Method 3: Factory Reset (Only if nothing else works)</h5>
+              <ol>
+                <li>Press the <strong>Home/Smart button</strong> on your remote</li>
+                <li>Go to <strong>Settings</strong> (gear icon)</li>
+                <li>Select <strong>All Settings</strong></li>
+                <li>Go to <strong>General</strong> → <strong>Reset to Initial Settings</strong></li>
+                <li><strong>Warning:</strong> This will erase all your settings and apps</li>
+              </ol>
+            </div>
+
+            <div className="step-result success">
+              <strong>Did this fix your issue?</strong> Great! You're all set.
+            </div>
+          </div>
+        );
+      
+      default:
+        return null;
+    }
   };
 
   const faqItems: FAQItem[] = [
@@ -93,150 +228,3 @@ const ExpertHelpFAQ: React.FC = () => {
             <div className="step-result">
               <strong>Working now?</strong> → Your equipment is fine, but you may have a Wi-Fi coverage issue. Contact us to discuss solutions.
             </div>
-            <div className="step-result">
-              <strong>Still not working?</strong> → Time to reach out to us
-            </div>
-          </div>
-
-          <div className="step-section contact-section">
-            <h4>Step 5: Contact SoundVision</h4>
-            <p>At this point, we've ruled out the simple fixes. Our team can:</p>
-            <ul>
-              <li>Run remote diagnostics on your network equipment</li>
-              <li>Schedule a service visit if needed</li>
-              <li className="premium-feature">Service members get priority scheduling</li>
-            </ul>
-            <button className="contact-button">Contact Support</button>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 'tv',
-      category: 'VIDEO',
-      categoryColor: '#FFE8E8',
-      question: 'Video (TV) issues',
-      content: (
-        <div className="faq-content">
-          <p className="coming-soon">Troubleshooting guide coming soon...</p>
-        </div>
-      )
-    },
-    {
-      id: 'smoke',
-      category: 'SECURITY',
-      categoryColor: '#E8F5E9',
-      question: 'My smoke detectors keep beeping. How do I make it stop?',
-      content: (
-        <div className="faq-content">
-          <div className="content-section">
-            <h3>Important: These are your electrical smoke detectors</h3>
-            <p>The beeping you're hearing is most likely from your home's hardwired electrical smoke detectors, not your security system smoke detectors. By National Electrical Code (NEC), these are all interconnected throughout your home and will chirp when the backup battery is low.</p>
-          </div>
-
-          <div className="content-section">
-            <p className="intro-text">Good news: This is an easy fix that takes about 15-20 minutes. And yes, it always seems to happen in the middle of the night!</p>
-          </div>
-
-          <div className="step-section">
-            <h4>Step 1: Replace ALL the 9-volt batteries</h4>
-            <ul>
-              <li>Walk through your entire home and count how many smoke detectors you have (write this number down!)</li>
-              <li>Purchase that many 9-volt batteries</li>
-              <li>Replace the battery in every single smoke detector, even if only one is beeping</li>
-              <li>Since they're interconnected, replacing just one won't stop the beeping</li>
-            </ul>
-            <div className="step-result success">
-              <strong>Pro tip:</strong> Write down the total number of smoke detectors you have. You'll thank yourself next year!
-            </div>
-          </div>
-
-          <div className="step-section">
-            <h4>Step 2: Set a reminder for next year</h4>
-            <ul>
-              <li>Add a calendar reminder for one year from today</li>
-              <li>Title it: "Replace ALL smoke detector batteries (you have [NUMBER] detectors)"</li>
-              <li>Include a note to buy [NUMBER] of 9-volt batteries before the reminder date</li>
-              <li>This prevents the dreaded 3 AM beeping next year</li>
-            </ul>
-            <div className="step-result">
-              <strong>Why do this?</strong> Replacing them all at once, every year, means you'll never be woken up by random beeping again.
-            </div>
-          </div>
-
-          <div className="step-section">
-            <h4>Step 3: Label the date (optional but helpful)</h4>
-            <ul>
-              <li>Use a small piece of masking tape or a label maker</li>
-              <li>Write today's date on each detector after replacing the battery</li>
-              <li>This helps you track when they were last changed</li>
-            </ul>
-          </div>
-
-          <div className="step-section contact-section">
-            <h4>Still beeping after replacing all batteries?</h4>
-            <p>If the beeping continues after you've replaced all the batteries:</p>
-            <ul>
-              <li>One of the detectors may need to be replaced entirely</li>
-              <li>There could be an issue with your electrical system</li>
-              <li>Contact an electrician for assistance</li>
-            </ul>
-            <p className="premium-feature">Note: These electrical smoke detectors are separate from any security system smoke detectors we may have installed.</p>
-          </div>
-        </div>
-      )
-    }
-  ];
-
-  return (
-    <div className="expert-help-container">
-      <div className="content-wrapper">
-        <h2 className="page-title">Expert Help & FAQ</h2>
-        
-        <div className="faq-list">
-          {faqItems.map((item) => (
-            <div key={item.id} className="faq-item">
-              <button 
-                className={`faq-button ${expandedId === item.id ? 'expanded' : ''}`}
-                onClick={() => toggleFAQ(item.id)}
-              >
-                <div className="faq-header">
-                  <span 
-                    className="category-badge" 
-                    style={{ backgroundColor: item.categoryColor }}
-                  >
-                    {item.category}
-                  </span>
-                  <span className="question">{item.question}</span>
-                </div>
-                <svg 
-                  className={`chevron ${expandedId === item.id ? 'rotated' : ''}`}
-                  width="24" 
-                  height="24" 
-                  viewBox="0 0 24 24" 
-                  fill="none"
-                >
-                  <path 
-                    d="M6 9L12 15L18 9" 
-                    stroke="#4FC3F7" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              
-              {expandedId === item.id && (
-                <div className="faq-expanded">
-                  {item.content}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ExpertHelpFAQ;
