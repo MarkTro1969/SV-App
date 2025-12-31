@@ -29,7 +29,7 @@ export default function App() {
       case Screen.KNOWLEDGE_BASE: return <KnowledgeBase />;
       case Screen.CONTACT: return <ContactOptions />;
       case Screen.FEEDBACK: return <Feedback onComplete={handleBack} />;
-      case Screen.HELP_FAQ: return <ExpertHelpFAQ />;
+      case Screen.HELP_FAQ: return <ExpertHelpFAQ setScreen={setCurrentScreen} />;
       default: return <Dashboard setScreen={setCurrentScreen} />;
     }
   };
