@@ -23,7 +23,7 @@ const ExpertHelpFAQ: React.FC<ExpertHelpFAQProps> = ({ navigateToSmartChat }) =>
     setSelectedDevice(null);
   };
 
-  const getDeviceContext = (device: string): SmartChatContext => {
+ const getDeviceContext = (device: string): SmartChatContext => {
     const deviceName = device === 'appletv' ? 'Apple TV' : device === 'roku' ? 'Roku' : 'LG TV';
     
     const troubleshootingSteps = {
@@ -44,6 +44,11 @@ const ExpertHelpFAQ: React.FC<ExpertHelpFAQProps> = ({ navigateToSmartChat }) =>
       ]
     };
 
+    return {
+      device: deviceName,
+      issue: `Customer has already tried these troubleshooting steps but the issue persists:\n${troubleshootingSteps[device as keyof typeof troubleshootingSteps].map((step, i) => `${i + 1}. ${step}`).join('\n')}\n\nThe device is still not working properly. Please provide advanced troubleshooting beyond these basic steps.`
+    };
+  };
     return {
       device: deviceName,
       issue: `Customer has already tried these troubleshooting steps but the issue persists:\n${troubleshootingSteps[device as keyof typeof troubleshootingSteps].map((step, i) => `${i + 1}. ${step}`).join('\n')}\n\nThe device is still not working properly. Please provide advanced troubleshooting beyond these basic steps.`
