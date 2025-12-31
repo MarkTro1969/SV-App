@@ -118,4 +118,4 @@ const ExpertHelpFAQ: React.FC = () => {
       question: 'Video (TV) issues',
       content: (
         <div className="faq-content">
-          <p className="coming-soon">Troubleshooting g
+         <p className="coming-soon">Troubleshooting guide coming soon...</p>
