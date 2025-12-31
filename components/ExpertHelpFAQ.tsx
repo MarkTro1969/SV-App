@@ -15,135 +15,171 @@ const ExpertHelpFAQ: React.FC = () => {
 
   const toggleFAQ = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
-    setSelectedDevice(null); // Reset device selection when collapsing
+    setSelectedDevice(null);
   };
 
   const renderDeviceInstructions = (device: string) => {
     switch(device) {
       case 'appletv':
         return (
-          <div className="device-instructions">
-            <h4>How to restart your Apple TV</h4>
-            
-            <div className="method-section">
-              <h5>Method 1: Using Settings (Recommended)</h5>
-              <ol>
-                <li>Go to <strong>Settings</strong> on your Apple TV</li>
-                <li>Select <strong>System</strong></li>
+          <>
+            <div className="step-section">
+              <h4>Step 1: Restart your Apple TV using Settings</h4>
+              <ul>
+                <li>Go to <strong>Settings</strong> on your Apple TV home screen</li>
+                <li>Scroll down and select <strong>System</strong></li>
                 <li>Select <strong>Restart</strong></li>
-                <li>Wait for your Apple TV to restart (about 1-2 minutes)</li>
-              </ol>
+                <li>Wait for your Apple TV to fully restart (about 1-2 minutes)</li>
+              </ul>
+              <div className="step-result success">
+                <strong>Did this fix it?</strong> → You're all set!
+              </div>
+              <div className="step-result">
+                <strong>Still having issues?</strong> → Continue to Step 2
+              </div>
             </div>
 
-            <div className="method-section">
-              <h5>Method 2: Using the Remote</h5>
-              <ol>
-                <li>Press and hold the <strong>Home button</strong> (TV icon) and <strong>Menu button</strong> together</li>
-                <li>Hold for about 5-10 seconds until the light on your Apple TV starts flashing</li>
-                <li>Release the buttons and wait for restart</li>
-              </ol>
-            </div>
-
-            <div className="method-section">
-              <h5>Method 3: Unplug (Last Resort)</h5>
-              <ol>
-                <li>Unplug the Apple TV power cord from the outlet</li>
-                <li>Wait 10 seconds</li>
-                <li>Plug it back in</li>
+            <div className="step-section">
+              <h4>Step 2: Try restarting with the remote</h4>
+              <ul>
+                <li>Press and hold both the <strong>Home button</strong> (TV icon) and <strong>Menu button</strong> at the same time</li>
+                <li>Keep holding for about 5-10 seconds</li>
+                <li>Release when the light on your Apple TV starts flashing</li>
                 <li>Wait for it to fully restart</li>
-              </ol>
+              </ul>
+              <div className="step-result success">
+                <strong>Did this fix it?</strong> → Great!
+              </div>
+              <div className="step-result">
+                <strong>Still not working?</strong> → Continue to Step 3
+              </div>
             </div>
 
-            <div className="step-result success">
-              <strong>Did this fix your issue?</strong> Great! You're all set.
+            <div className="step-section">
+              <h4>Step 3: Power cycle (unplug)</h4>
+              <ul>
+                <li>Unplug the Apple TV power cord from the wall outlet</li>
+                <li>Wait 30 seconds</li>
+                <li>Plug it back in</li>
+                <li>Wait for it to fully restart and try again</li>
+              </ul>
+              <div className="step-result success">
+                <strong>Working now?</strong> → Perfect!
+              </div>
+              <div className="step-result">
+                <strong>Still having problems?</strong> → Time to get expert help
+              </div>
             </div>
-          </div>
+          </>
         );
       
       case 'roku':
         return (
-          <div className="device-instructions">
-            <h4>How to restart your Roku</h4>
-            
-            <div className="method-section">
-              <h5>Method 1: Using Settings (Recommended)</h5>
-              <ol>
+          <>
+            <div className="step-section">
+              <h4>Step 1: Restart your Roku using Settings</h4>
+              <ul>
                 <li>Press the <strong>Home button</strong> on your Roku remote</li>
-                <li>Go to <strong>Settings</strong></li>
+                <li>Scroll down and select <strong>Settings</strong></li>
                 <li>Select <strong>System</strong></li>
                 <li>Select <strong>System restart</strong></li>
                 <li>Select <strong>Restart</strong> to confirm</li>
-                <li>Wait for your Roku to restart (about 1-2 minutes)</li>
-              </ol>
+                <li>Wait for your Roku to fully restart (about 1-2 minutes)</li>
+              </ul>
+              <div className="step-result success">
+                <strong>Did this fix it?</strong> → You're all set!
+              </div>
+              <div className="step-result">
+                <strong>Still having issues?</strong> → Continue to Step 2
+              </div>
             </div>
 
-            <div className="method-section">
-              <h5>Method 2: Using the Remote</h5>
-              <ol>
-                <li>Press the <strong>Home button</strong> 5 times</li>
+            <div className="step-section">
+              <h4>Step 2: Try the remote restart sequence</h4>
+              <ul>
+                <li>Press the <strong>Home button</strong> 5 times quickly</li>
                 <li>Press the <strong>Up arrow</strong> once</li>
                 <li>Press the <strong>Rewind button</strong> twice</li>
                 <li>Press the <strong>Fast Forward button</strong> twice</li>
                 <li>Your Roku will restart automatically</li>
-              </ol>
+              </ul>
+              <div className="step-result success">
+                <strong>Did this fix it?</strong> → Great!
+              </div>
+              <div className="step-result">
+                <strong>Still not working?</strong> → Continue to Step 3
+              </div>
             </div>
 
-            <div className="method-section">
-              <h5>Method 3: Unplug (Last Resort)</h5>
-              <ol>
-                <li>Unplug the Roku power cord from the outlet or TV</li>
-                <li>Wait 10 seconds</li>
+            <div className="step-section">
+              <h4>Step 3: Power cycle (unplug)</h4>
+              <ul>
+                <li>Unplug the Roku power cord from the wall outlet or TV</li>
+                <li>Wait 30 seconds</li>
                 <li>Plug it back in</li>
-                <li>Wait for it to fully restart</li>
-              </ol>
+                <li>Wait for it to fully restart and try again</li>
+              </ul>
+              <div className="step-result success">
+                <strong>Working now?</strong> → Perfect!
+              </div>
+              <div className="step-result">
+                <strong>Still having problems?</strong> → Time to get expert help
+              </div>
             </div>
-
-            <div className="step-result success">
-              <strong>Did this fix your issue?</strong> Great! You're all set.
-            </div>
-          </div>
+          </>
         );
       
       case 'lgtv':
         return (
-          <div className="device-instructions">
-            <h4>How to restart your LG TV</h4>
-            
-            <div className="method-section">
-              <h5>Method 1: Soft Reset (Quick Restart)</h5>
-              <ol>
-                <li>Press and hold the <strong>Power button</strong> on your remote</li>
-                <li>Keep holding until the TV turns off and back on</li>
-                <li>This takes about 5 seconds</li>
-              </ol>
+          <>
+            <div className="step-section">
+              <h4>Step 1: Quick restart with the remote</h4>
+              <ul>
+                <li>Press and hold the <strong>Power button</strong> on your LG remote</li>
+                <li>Keep holding for about 5 seconds</li>
+                <li>The TV will turn off and back on automatically</li>
+                <li>Wait for it to fully restart</li>
+              </ul>
+              <div className="step-result success">
+                <strong>Did this fix it?</strong> → You're all set!
+              </div>
+              <div className="step-result">
+                <strong>Still having issues?</strong> → Continue to Step 2
+              </div>
             </div>
 
-            <div className="method-section">
-              <h5>Method 2: Power Cycle (Recommended)</h5>
-              <ol>
+            <div className="step-section">
+              <h4>Step 2: Full power cycle</h4>
+              <ul>
                 <li>Turn off your TV using the remote</li>
                 <li>Unplug the TV power cord from the wall outlet</li>
                 <li>Wait 60 seconds (this clears the TV's memory)</li>
                 <li>Plug the power cord back in</li>
-                <li>Turn the TV back on</li>
-              </ol>
+                <li>Turn the TV back on and test</li>
+              </ul>
+              <div className="step-result success">
+                <strong>Working now?</strong> → Great!
+              </div>
+              <div className="step-result">
+                <strong>Still not working?</strong> → Continue to Step 3
+              </div>
             </div>
 
-            <div className="method-section">
-              <h5>Method 3: Factory Reset (Only if nothing else works)</h5>
-              <ol>
-                <li>Press the <strong>Home/Smart button</strong> on your remote</li>
-                <li>Go to <strong>Settings</strong> (gear icon)</li>
-                <li>Select <strong>All Settings</strong></li>
-                <li>Go to <strong>General</strong> → <strong>Reset to Initial Settings</strong></li>
-                <li><strong>Warning:</strong> This will erase all your settings and apps</li>
-              </ol>
+            <div className="step-section">
+              <h4>Step 3: Check your TV input/source</h4>
+              <ul>
+                <li>Press the <strong>Input</strong> or <strong>Source</strong> button on your remote</li>
+                <li>Make sure the correct input is selected (usually HDMI 1, HDMI 2, etc.)</li>
+                <li>Try switching between inputs to see if picture appears</li>
+              </ul>
+              <div className="step-result success">
+                <strong>Working now?</strong> → Perfect!
+              </div>
+              <div className="step-result">
+                <strong>Still having problems?</strong> → Time to get expert help
+              </div>
             </div>
-
-            <div className="step-result success">
-              <strong>Did this fix your issue?</strong> Great! You're all set.
-            </div>
-          </div>
+          </>
         );
       
       default:
@@ -255,7 +291,7 @@ const ExpertHelpFAQ: React.FC = () => {
         <div className="faq-content">
           <div className="content-section">
             <h3>Select your streaming device:</h3>
-            <p className="intro-text">Choose the device you use to watch TV so we can show you the right restart instructions.</p>
+            <p className="intro-text">Most TV issues can be fixed with a simple restart. Choose your device below for step-by-step instructions.</p>
           </div>
 
           <div className="device-selector">
@@ -301,12 +337,12 @@ const ExpertHelpFAQ: React.FC = () => {
               {renderDeviceInstructions(selectedDevice)}
               
               <div className="step-section contact-section">
-                <h4>Still having issues?</h4>
-                <p>If restarting your device didn't solve the problem, we're here to help:</p>
+                <h4>Need more help?</h4>
+                <p>If these steps didn't resolve your issue, the problem might be more complex. We can help:</p>
                 <ul>
-                  <li>Try our <strong>Smart Assistant</strong> for more detailed troubleshooting</li>
-                  <li>Contact our support team directly</li>
-                  <li className="premium-feature">Service members get priority support</li>
+                  <li>Use our <strong>Smart Assistant</strong> for advanced troubleshooting with photos</li>
+                  <li>Call our support team for immediate assistance</li>
+                  <li className="premium-feature">Service members get priority support and scheduling</li>
                 </ul>
                 <button className="contact-button">Contact Support</button>
               </div>
@@ -315,7 +351,7 @@ const ExpertHelpFAQ: React.FC = () => {
 
           {!selectedDevice && (
             <div className="step-section">
-              <p className="intro-text">👆 Select your device above to see restart instructions</p>
+              <p className="intro-text">👆 Click on your device above to see restart instructions</p>
             </div>
           )}
         </div>
