@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { generateSupportResponse } from '../services/claudeService';
 import { Message, SmartChatContext } from '../types';
 import { validateServiceQuery, getOutOfScopeMessage } from '../utils/queryValidator';
+
 interface SmartChatProps {
   context?: SmartChatContext | null;
   onClearContext: () => void;
@@ -64,7 +65,8 @@ export const SmartChat: React.FC<SmartChatProps> = ({ context, onClearContext })
       reader.readAsDataURL(file);
     }
   };
-const handleSend = async (overrideText?: string) => {
+
+  const handleSend = async (overrideText?: string) => {
     const textToSend = overrideText || input;
     if ((!textToSend.trim() && !selectedImage) || isLoading) return;
     
@@ -109,15 +111,6 @@ const handleSend = async (overrideText?: string) => {
     setSelectedImage(null);
     setIsLoading(true);
     
-    try {
-      const reply = await generateSupportResponse(messages, textToSend, selectedImage || undefined);
-      setMessages(prev => [...prev, { id: (Date.now()+1).toString(), role: 'model', text: reply }]);
-    } catch (e) {
-      setMessages(prev => [...prev, { id: 'err', role: 'model', text: "I'm having trouble connecting. Please check your internet or call us directly.", isError: true }]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
     try {
       const reply = await generateSupportResponse(messages, textToSend, selectedImage || undefined);
       setMessages(prev => [...prev, { id: (Date.now()+1).toString(), role: 'model', text: reply }]);
