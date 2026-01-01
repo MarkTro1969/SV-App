@@ -64,10 +64,34 @@ export const SmartChat: React.FC<SmartChatProps> = ({ context, onClearContext })
       reader.readAsDataURL(file);
     }
   };
-
-  const handleSend = async (overrideText?: string) => {
+const handleSend = async (overrideText?: string) => {
     const textToSend = overrideText || input;
     if ((!textToSend.trim() && !selectedImage) || isLoading) return;
+    
+    // Validate query is within SoundVision service domain
+    const validation = validateServiceQuery(textToSend);
+    
+    if (!validation.isValid) {
+      const userMsg: Message = { 
+        id: Date.now().toString(), 
+        role: 'user', 
+        text: textToSend || (selectedImage ? "Check this photo for me." : ""),
+        media: selectedImage || undefined
+      };
+      
+      setMessages(prev => [...prev, userMsg]);
+      
+      const rejectionMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'model',
+        text: getOutOfScopeMessage(textToSend)
+      };
+      
+      setMessages(prev => [...prev, rejectionMsg]);
+      setInput('');
+      setSelectedImage(null);
+      return;
+    }
     
     const userMsg: Message = { 
       id: Date.now().toString(), 
@@ -85,6 +109,15 @@ export const SmartChat: React.FC<SmartChatProps> = ({ context, onClearContext })
     setSelectedImage(null);
     setIsLoading(true);
     
+    try {
+      const reply = await generateSupportResponse(messages, textToSend, selectedImage || undefined);
+      setMessages(prev => [...prev, { id: (Date.now()+1).toString(), role: 'model', text: reply }]);
+    } catch (e) {
+      setMessages(prev => [...prev, { id: 'err', role: 'model', text: "I'm having trouble connecting. Please check your internet or call us directly.", isError: true }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
     try {
       const reply = await generateSupportResponse(messages, textToSend, selectedImage || undefined);
       setMessages(prev => [...prev, { id: (Date.now()+1).toString(), role: 'model', text: reply }]);
