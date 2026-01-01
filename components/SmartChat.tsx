@@ -70,7 +70,7 @@ export const SmartChat: React.FC<SmartChatProps> = ({ context, onClearContext })
     const textToSend = overrideText || input;
     if ((!textToSend.trim() && !selectedImage) || isLoading) return;
     
-    // Validate query is within SoundVision service domain
+    // ALWAYS validate every query - no exceptions
     const validation = validateServiceQuery(textToSend);
     
     if (!validation.isValid) {
