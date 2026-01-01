@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { generateSupportResponse } from '../services/claudeService';
 import { Message, SmartChatContext } from '../types';
-
+import { validateServiceQuery, getOutOfScopeMessage } from '../utils/queryValidator';
 interface SmartChatProps {
   context?: SmartChatContext | null;
   onClearContext: () => void;
