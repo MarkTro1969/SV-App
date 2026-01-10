@@ -9,16 +9,21 @@ import { Feedback } from './components/Feedback';
 import ExpertHelpFAQ from './components/ExpertHelpFAQ';
 
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState<Screen>(() => {
-    const saved = localStorage.getItem('sv_current_screen');
-    return (saved as Screen) || Screen.DASHBOARD;
-  });
-
+  const [currentScreen, setCurrentScreen] = useState<Screen>(Screen.DASHBOARD);
   const [chatContext, setChatContext] = useState<SmartChatContext | null>(null);
 
+  // Reset to dashboard when app becomes visible
   useEffect(() => {
-    localStorage.setItem('sv_current_screen', currentScreen);
-  }, [currentScreen]);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        setCurrentScreen(Screen.DASHBOARD);
+        setChatContext(null);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
 
   const handleBack = () => setCurrentScreen(Screen.DASHBOARD);
 
