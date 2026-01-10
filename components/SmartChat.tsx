@@ -9,18 +9,22 @@ interface SmartChatProps {
 }
 
 export const SmartChat: React.FC<SmartChatProps> = ({ context, onClearContext }) => {
-  const [messages, setMessages] = useState<Message[]>(() => {
-    const saved = localStorage.getItem('sv_chat_history');
-    return saved ? JSON.parse(saved) : [
-      { id: '1', role: 'model', text: "Welcome to SoundVision Concierge. I'm your technical assistant. What system are you having trouble with?" }
-    ];
-  });
+  const [messages, setMessages] = useState<Message[]>([
+    { id: '1', role: 'model', text: "Welcome to SoundVision Concierge. I'm your technical assistant. What system are you having trouble with?" }
+  ]);
   
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<{ mimeType: string; data: string } | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Clear localStorage on component unmount
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('sv_chat_history');
+    };
+  }, []);
 
   // Handle context from Help & FAQ
   useEffect(() => {
@@ -47,10 +51,6 @@ export const SmartChat: React.FC<SmartChatProps> = ({ context, onClearContext })
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
-
-  useEffect(() => {
-    localStorage.setItem('sv_chat_history', JSON.stringify(messages));
-  }, [messages]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
