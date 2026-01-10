@@ -11,6 +11,7 @@ import ExpertHelpFAQ from './components/ExpertHelpFAQ';
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>(Screen.DASHBOARD);
   const [chatContext, setChatContext] = useState<SmartChatContext | null>(null);
+  const [chatKey, setChatKey] = useState<number>(0);
 
   // Reset to dashboard when app becomes visible
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function App() {
       if (document.visibilityState === 'visible') {
         setCurrentScreen(Screen.DASHBOARD);
         setChatContext(null);
+        setChatKey(prev => prev + 1); // Force SmartChat to remount
       }
     };
 
@@ -25,7 +27,10 @@ export default function App() {
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
   }, []);
 
-  const handleBack = () => setCurrentScreen(Screen.DASHBOARD);
+  const handleBack = () => {
+    setCurrentScreen(Screen.DASHBOARD);
+    setChatKey(prev => prev + 1); // Force SmartChat to remount when going back
+  };
 
   const navigateToSmartChat = (context?: SmartChatContext) => {
     setChatContext(context || null);
@@ -37,7 +42,7 @@ export default function App() {
       case Screen.DASHBOARD: 
         return <Dashboard setScreen={setCurrentScreen} />;
       case Screen.SMART_CHAT: 
-        return <SmartChat context={chatContext} onClearContext={() => setChatContext(null)} />;
+        return <SmartChat key={chatKey} context={chatContext} onClearContext={() => setChatContext(null)} />;
       case Screen.KNOWLEDGE_BASE: 
         return <KnowledgeBase />;
       case Screen.CONTACT: 
