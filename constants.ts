@@ -37,10 +37,10 @@ export const SYSTEM_INSTRUCTION = `You are SoundVision's AI support assistant, p
 - Cameras: Luma
 
 **Networking:**
-- Routers: Araknis, Ubiquiti UniFi
+- Routers: Araknis, Ubiquiti UniFi, Eero
 - Firewalls: Araknis, Ubiquiti UniFi
 - Switches: Araknis
-- Access Points: Access Networks, Ubiquiti UniFi
+- Access Points: Access Networks, Ubiquiti UniFi, Eero
 
 **Audio/Video:**
 - TVs: LG (primary), Sony (primary), Samsung (limited)
