@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { generateSupportResponse } from '../services/claudeService';
 import { Message, SmartChatContext } from '../types';
 import { validateServiceQuery, getOutOfScopeMessage } from '../utils/queryValidator';
+import { MessageRenderer } from './MessageRenderer';
 
 interface SmartChatProps {
   context?: SmartChatContext | null;
@@ -149,13 +150,17 @@ export const SmartChat: React.FC<SmartChatProps> = ({ context, onClearContext })
                 : 'bg-white border border-slate-200 text-sv-dark rounded-bl-none'
             }`}>
               {m.media && (
-                <img 
-                  src={m.media.data} 
-                  alt="User uploaded attachment" 
+                <img
+                  src={m.media.data}
+                  alt="User uploaded attachment"
                   className="rounded-xl mb-3 max-h-60 object-cover w-full border border-white/20"
                 />
               )}
-              <p className="text-[16px] leading-relaxed font-medium whitespace-pre-wrap">{m.text}</p>
+              {m.role === 'model' ? (
+                <MessageRenderer text={m.text} />
+              ) : (
+                <p className="text-[16px] leading-relaxed font-medium whitespace-pre-wrap">{m.text}</p>
+              )}
               <span className={`text-[9px] mt-2 block font-bold uppercase tracking-widest opacity-40 ${m.role === 'user' ? 'text-right' : 'text-left'}`}>
                 {m.role === 'user' ? 'You' : 'SoundVision AI'}
               </span>

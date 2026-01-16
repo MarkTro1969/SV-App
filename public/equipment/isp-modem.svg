@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f8fafc"/>
+
+  <!-- Modem body (vertical standing unit) -->
+  <rect x="140" y="40" width="120" height="200" rx="10" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+
+  <!-- Front panel with LEDs -->
+  <rect x="155" y="55" width="90" height="150" rx="5" fill="#0f172a"/>
+
+  <!-- Status LEDs -->
+  <circle cx="200" cy="75" r="5" fill="#22c55e"/>
+  <text x="200" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8">POWER</text>
+
+  <circle cx="200" cy="105" r="5" fill="#22c55e"/>
+  <text x="200" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8">DOWNSTREAM</text>
+
+  <circle cx="200" cy="135" r="5" fill="#22c55e"/>
+  <text x="200" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8">UPSTREAM</text>
+
+  <circle cx="200" cy="165" r="5" fill="#22c55e"/>
+  <text x="200" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8">ONLINE</text>
+
+  <!-- ISP logo placeholder -->
+  <text x="200" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#60a5fa">MODEM</text>
+
+  <!-- Back panel (shown to the right) -->
+  <rect x="280" y="80" width="80" height="140" rx="5" fill="#334155"/>
+  <text x="320" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#94a3b8">BACK</text>
+
+  <!-- Coax input -->
+  <circle cx="320" cy="125" r="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="320" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#8b5cf6">COAX</text>
+
+  <!-- Ethernet port -->
+  <rect x="305" y="165" width="30" height="20" rx="2" fill="#3b82f6"/>
+  <text x="320" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#3b82f6">ETHERNET</text>
+
+  <!-- Reset button -->
+  <circle cx="320" y="225" r="4" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+
+  <!-- Label -->
+  <text x="200" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#64748b">ISP Modem (Front + Back View)</text>
+</svg>

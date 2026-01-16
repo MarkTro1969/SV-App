@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f8fafc"/>
+
+  <!-- Router body (horizontal box shape) -->
+  <rect x="50" y="100" width="300" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+
+  <!-- Front panel LEDs -->
+  <circle cx="80" cy="130" r="5" fill="#22c55e"/>
+  <circle cx="100" cy="130" r="5" fill="#22c55e"/>
+  <circle cx="120" cy="130" r="5" fill="#3b82f6"/>
+  <circle cx="140" cy="130" r="5" fill="#22c55e"/>
+
+  <!-- LED labels -->
+  <text x="80" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8">PWR</text>
+  <text x="100" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8">SYS</text>
+  <text x="120" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8">WAN</text>
+  <text x="140" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8">WiFi</text>
+
+  <!-- Araknis logo -->
+  <text x="250" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#60a5fa">ARAKNIS</text>
+
+  <!-- Ventilation lines -->
+  <line x1="280" y1="115" x2="330" y2="115" stroke="#334155" stroke-width="1"/>
+  <line x1="280" y1="125" x2="330" y2="125" stroke="#334155" stroke-width="1"/>
+  <line x1="280" y1="135" x2="330" y2="135" stroke="#334155" stroke-width="1"/>
+
+  <!-- Back ports (shown below for reference) -->
+  <rect x="70" y="200" width="260" height="40" rx="5" fill="#334155"/>
+  <rect x="85" y="210" width="25" height="20" rx="2" fill="#3b82f6"/>
+  <text x="97" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8">WAN</text>
+
+  <rect x="120" y="210" width="25" height="20" rx="2" fill="#fbbf24"/>
+  <rect x="150" y="210" width="25" height="20" rx="2" fill="#fbbf24"/>
+  <rect x="180" y="210" width="25" height="20" rx="2" fill="#fbbf24"/>
+  <rect x="210" y="210" width="25" height="20" rx="2" fill="#fbbf24"/>
+  <text x="175" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8">LAN PORTS</text>
+
+  <!-- Reset button indicator -->
+  <circle cx="300" cy="220" r="6" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+  <text x="300" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#ef4444">RESET</text>
+
+  <!-- Label -->
+  <text x="200" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#64748b">Araknis Router (Front + Back View)</text>
+</svg>
