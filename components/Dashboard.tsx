@@ -11,9 +11,6 @@ const getHolidayInfo = (): { isHolidayPeriod: boolean; holidayName: string; days
   const today = new Date();
   const year = today.getFullYear();
 
-  // TEST MODE: Remove this return statement when done testing
-  return { isHolidayPeriod: true, holidayName: 'Test Holiday', daysUntil: 0 };
-
   // Define holidays with their dates and how many days before to show the notice
   const holidays = [
     { name: '4th of July', getDate: (y: number) => new Date(y, 6, 4), daysBefore: 3 },
