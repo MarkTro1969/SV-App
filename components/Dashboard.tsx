@@ -113,20 +113,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ setScreen }) => {
     <div className="flex flex-col h-full p-6 space-y-6 animate-fade-in bg-slate-50/50">
       {/* Holiday Notice Banner */}
       {holidayInfo && (
-        <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 animate-fade-in">
+        <div className="bg-sv-light border-2 border-sv-teal/30 rounded-2xl p-4 animate-fade-in">
           <div className="flex items-start gap-3">
-            <div className="text-amber-500 mt-0.5 flex-shrink-0">
+            <div className="text-sv-teal mt-0.5 flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-bold text-amber-800">
+              <p className="text-sm font-bold text-sv-dark">
                 {holidayInfo.daysUntil === 0
                   ? `${holidayInfo.holidayName} Holiday Hours`
                   : `${holidayInfo.holidayName} is in ${holidayInfo.daysUntil} day${holidayInfo.daysUntil === 1 ? '' : 's'}`}
               </p>
-              <p className="text-xs text-amber-700 mt-1">
+              <p className="text-xs text-sv-dark/70 mt-1">
                 In-home service is <strong>emergency only</strong> at <strong>$500/hr</strong>. Remote support available for Elite Plus members.
               </p>
             </div>
@@ -193,19 +193,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ setScreen }) => {
         {/* Service Membership Promo */}
         <button
           onClick={() => setScreen(Screen.MEMBERSHIP)}
-          className="group relative overflow-hidden bg-gradient-to-r from-amber-50 to-amber-100 border-2 border-amber-200 p-5 rounded-[2rem] shadow-sm hover:border-amber-300 hover:shadow-md transition-all text-left active:scale-[0.98]"
+          className="group relative overflow-hidden bg-sv-light border-2 border-sv-teal/30 p-5 rounded-[2rem] shadow-sm hover:border-sv-teal hover:shadow-md transition-all text-left active:scale-[0.98]"
         >
           <div className="flex items-center gap-4">
-            <div className="bg-amber-200 w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-sv-teal/20 w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-sv-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
               </svg>
             </div>
             <div className="flex-1">
-              <h3 className="text-lg font-bold text-amber-900">Service Memberships</h3>
-              <p className="text-xs text-amber-700 mt-0.5">Get after-hours support, priority scheduling & save on service calls</p>
+              <h3 className="text-lg font-bold text-sv-dark">Service Memberships</h3>
+              <p className="text-xs text-sv-dark/70 mt-0.5">Get after-hours support, priority scheduling & save on service calls</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-400 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-sv-teal group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </div>
