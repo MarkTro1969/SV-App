@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ExpertHelpFAQ.css';
-import { SmartChatContext } from '../types';
+import { SmartChatContext, Screen } from '../types';
 
 interface FAQItem {
   id: string;
@@ -12,9 +12,10 @@ interface FAQItem {
 
 interface ExpertHelpFAQProps {
   navigateToSmartChat: (context?: SmartChatContext) => void;
+  setScreen?: (screen: Screen) => void;
 }
 
-const ExpertHelpFAQ: React.FC<ExpertHelpFAQProps> = ({ navigateToSmartChat }) => {
+const ExpertHelpFAQ: React.FC<ExpertHelpFAQProps> = ({ navigateToSmartChat, setScreen }) => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
 
@@ -332,7 +333,15 @@ const getDeviceContext = (device: string): SmartChatContext => {
             onClick={() => navigateToSmartChat(getInternetContext())}
           >Smart Assistant</button> for advanced troubleshooting with photos</li>
           <li>Call our support team for immediate assistance</li>
-          <li className="premium-feature">Service members get priority support and scheduling</li>
+          <li className="premium-feature">
+            {setScreen ? (
+              <button onClick={() => setScreen(Screen.MEMBERSHIP)} className="membership-link">
+                Service members get priority support and scheduling →
+              </button>
+            ) : (
+              'Service members get priority support and scheduling'
+            )}
+          </li>
         </ul>
         <button className="contact-button">Contact Support</button>
       </div>
@@ -397,7 +406,15 @@ const getDeviceContext = (device: string): SmartChatContext => {
                 onClick={() => navigateToSmartChat(getDeviceContext(selectedDevice))}
               >Smart Assistant</button> for advanced troubleshooting with photos</li>
               <li>Call our support team for immediate assistance</li>
-              <li className="premium-feature">Service members get priority support and scheduling</li>
+              <li className="premium-feature">
+              {setScreen ? (
+                <button onClick={() => setScreen(Screen.MEMBERSHIP)} className="membership-link">
+                  Service members get priority support and scheduling →
+                </button>
+              ) : (
+                'Service members get priority support and scheduling'
+              )}
+            </li>
             </ul>
             <button className="contact-button">Contact Support</button>
           </div>
@@ -478,7 +495,15 @@ const getDeviceContext = (device: string): SmartChatContext => {
             onClick={() => navigateToSmartChat(getSmokeDetectorContext())}
           >Smart Assistant</button> for advanced troubleshooting with photos</li>
           <li>Call our support team for immediate assistance</li>
-          <li className="premium-feature">Service members get priority support and scheduling</li>
+          <li className="premium-feature">
+            {setScreen ? (
+              <button onClick={() => setScreen(Screen.MEMBERSHIP)} className="membership-link">
+                Service members get priority support and scheduling →
+              </button>
+            ) : (
+              'Service members get priority support and scheduling'
+            )}
+          </li>
         </ul>
         <button className="contact-button">Contact Support</button>
       </div>

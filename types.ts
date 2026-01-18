@@ -4,7 +4,8 @@ export enum Screen {
   KNOWLEDGE_BASE = 'KNOWLEDGE_BASE',
   CONTACT = 'CONTACT',
   FEEDBACK = 'FEEDBACK',
-  HELP_FAQ = 'HELP_FAQ'
+  HELP_FAQ = 'HELP_FAQ',
+  MEMBERSHIP = 'MEMBERSHIP'
 }
 
 export interface Message {

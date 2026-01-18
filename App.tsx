@@ -7,6 +7,7 @@ import { KnowledgeBase } from './components/KnowledgeBase';
 import { ContactOptions } from './components/ContactOptions';
 import { Feedback } from './components/Feedback';
 import ExpertHelpFAQ from './components/ExpertHelpFAQ';
+import { ServiceMembership } from './components/ServiceMembership';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>(Screen.DASHBOARD);
@@ -45,13 +46,15 @@ export default function App() {
         return <SmartChat key={chatKey} context={chatContext} onClearContext={() => setChatContext(null)} />;
       case Screen.KNOWLEDGE_BASE: 
         return <KnowledgeBase />;
-      case Screen.CONTACT: 
-        return <ContactOptions />;
+      case Screen.CONTACT:
+        return <ContactOptions setScreen={setCurrentScreen} />;
       case Screen.FEEDBACK: 
         return <Feedback onComplete={handleBack} />;
-      case Screen.HELP_FAQ: 
-        return <ExpertHelpFAQ navigateToSmartChat={navigateToSmartChat} />;
-      default: 
+      case Screen.HELP_FAQ:
+        return <ExpertHelpFAQ navigateToSmartChat={navigateToSmartChat} setScreen={setCurrentScreen} />;
+      case Screen.MEMBERSHIP:
+        return <ServiceMembership />;
+      default:
         return <Dashboard setScreen={setCurrentScreen} />;
     }
   };
