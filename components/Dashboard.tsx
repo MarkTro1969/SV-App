@@ -82,22 +82,22 @@ const getTip = (): { icon: string; title: string; message: string } => {
     {
       icon: 'update',
       title: 'System Updates Required',
-      message: 'Regular updates keep your smart home running smoothly. Schedule a proactive checkup to stay current.'
+      message: 'Regular updates keep your smart home running smoothly. Contact us to schedule a proactive system review.'
     },
     {
       icon: 'checkup',
-      title: 'Annual Tune-up',
-      message: 'Elite Plus members get a free annual system checkup. Keep your equipment optimized!'
+      title: 'Proactive System Review',
+      message: 'Prevent problems before they happen. Schedule a system checkup to keep your equipment running at its best.'
     },
     {
       icon: 'wifi',
       title: 'Network Health',
-      message: "Slow streaming? Periodic network optimization keeps everything running at peak performance."
+      message: 'Slow streaming or connectivity issues? Contact us to optimize your network for peak performance.'
     },
     {
       icon: 'security',
       title: 'Security Check',
-      message: 'When was your last security system test? Regular testing ensures your home stays protected.'
+      message: 'When was your last security system test? Contact us to ensure your home stays protected.'
     }
   ];
 
@@ -113,20 +113,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ setScreen }) => {
     <div className="flex flex-col h-full p-6 space-y-6 animate-fade-in bg-slate-50/50">
       {/* Holiday Notice Banner */}
       {holidayInfo && (
-        <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-4 animate-fade-in">
+        <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 animate-fade-in">
           <div className="flex items-start gap-3">
-            <div className="text-red-500 mt-0.5 flex-shrink-0">
+            <div className="text-amber-500 mt-0.5 flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-bold text-red-800">
+              <p className="text-sm font-bold text-amber-800">
                 {holidayInfo.daysUntil === 0
                   ? `${holidayInfo.holidayName} Holiday Hours`
                   : `${holidayInfo.holidayName} is in ${holidayInfo.daysUntil} day${holidayInfo.daysUntil === 1 ? '' : 's'}`}
               </p>
-              <p className="text-xs text-red-700 mt-1">
+              <p className="text-xs text-amber-700 mt-1">
                 In-home service is <strong>emergency only</strong> at <strong>$500/hr</strong>. Remote support available for Elite Plus members.
               </p>
             </div>
