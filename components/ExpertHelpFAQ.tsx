@@ -25,7 +25,7 @@ const ExpertHelpFAQ: React.FC<ExpertHelpFAQProps> = ({ navigateToSmartChat }) =>
 
 const getDeviceContext = (device: string): SmartChatContext => {
     const deviceName = device === 'appletv' ? 'Apple TV' : device === 'roku' ? 'Roku' : 'LG TV';
-    
+
     const troubleshootingSteps: Record<string, string[]> = {
       'appletv': [
         'Restarted Apple TV using Settings menu (Settings > System > Restart)',
@@ -50,6 +50,35 @@ const getDeviceContext = (device: string): SmartChatContext => {
     return {
       device: deviceName,
       issue: `I've already tried these troubleshooting steps but it's still not working:\n\n${stepsList}\n\nCan you help me with more advanced troubleshooting beyond these basic restart steps?`
+    };
+  };
+
+  const getInternetContext = (): SmartChatContext => {
+    const steps = [
+      'Checked for provider outage - no outage reported',
+      'Power cycled modem and router (unplugged for 30 seconds)',
+      'Checked all cables - connections are secure',
+      'Tested with one device close to router'
+    ];
+    const stepsList = steps.map((step, i) => `${i + 1}. ${step}`).join('\n');
+
+    return {
+      device: 'Internet/Network',
+      issue: `I've already tried these troubleshooting steps but my internet is still not working:\n\n${stepsList}\n\nCan you help me with more advanced troubleshooting?`
+    };
+  };
+
+  const getSmokeDetectorContext = (): SmartChatContext => {
+    const steps = [
+      'Replaced 9-volt batteries in all smoke detectors',
+      'Counted total number of detectors in home',
+      'Verified all detectors have fresh batteries'
+    ];
+    const stepsList = steps.map((step, i) => `${i + 1}. ${step}`).join('\n');
+
+    return {
+      device: 'Smoke Detectors',
+      issue: `I've already tried these troubleshooting steps but my smoke detectors are still beeping:\n\n${stepsList}\n\nCan you help me figure out what else might be causing the issue?`
     };
   };
 
@@ -295,12 +324,15 @@ const getDeviceContext = (device: string): SmartChatContext => {
       </div>
 
       <div className="step-section contact-section">
-        <h4>Step 5: Contact SoundVision</h4>
-        <p>At this point, we've ruled out the simple fixes. Our team can:</p>
+        <h4>Need more help?</h4>
+        <p>If these steps didn't resolve your issue, the problem might be more complex. We can help:</p>
         <ul>
-          <li>Run remote diagnostics on your network equipment</li>
-          <li>Schedule a service visit if needed</li>
-          <li className="premium-feature">Service members get priority scheduling</li>
+          <li>Use our <button
+            className="smart-assistant-link"
+            onClick={() => navigateToSmartChat(getInternetContext())}
+          >Smart Assistant</button> for advanced troubleshooting with photos</li>
+          <li>Call our support team for immediate assistance</li>
+          <li className="premium-feature">Service members get priority support and scheduling</li>
         </ul>
         <button className="contact-button">Contact Support</button>
       </div>
@@ -435,6 +467,20 @@ const getDeviceContext = (device: string): SmartChatContext => {
           <li>Contact an electrician for assistance</li>
         </ul>
         <p className="premium-feature">Note: These electrical smoke detectors are separate from any security system smoke detectors we may have installed.</p>
+      </div>
+
+      <div className="step-section contact-section">
+        <h4>Need more help?</h4>
+        <p>If these steps didn't resolve your issue, the problem might be more complex. We can help:</p>
+        <ul>
+          <li>Use our <button
+            className="smart-assistant-link"
+            onClick={() => navigateToSmartChat(getSmokeDetectorContext())}
+          >Smart Assistant</button> for advanced troubleshooting with photos</li>
+          <li>Call our support team for immediate assistance</li>
+          <li className="premium-feature">Service members get priority support and scheduling</li>
+        </ul>
+        <button className="contact-button">Contact Support</button>
       </div>
     </div>
   );

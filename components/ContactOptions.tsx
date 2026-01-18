@@ -103,7 +103,6 @@ export const ContactOptions: React.FC = () => {
            </div>
 
            <div className="pt-6 border-t border-slate-200">
-             <p className="text-sv-dark/50 mb-3 text-xs font-bold uppercase tracking-widest">Formal Service Portal</p>
              <a href={`https://${WEBSITE}/service-request`} target="_blank" rel="noreferrer">
                <Button variant="ghost" className="w-full border-2 border-sv-teal/20 hover:border-sv-teal hover:bg-sv-light !text-sv-teal py-4">
                  Open Official Service Ticket
