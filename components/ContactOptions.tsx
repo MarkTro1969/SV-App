@@ -50,20 +50,20 @@ export const ContactOptions: React.FC<ContactOptionsProps> = ({ setScreen }) => 
         </div>
 
         {/* After-hours membership promo */}
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+        <div className="bg-sv-light border border-sv-teal/30 rounded-2xl p-4">
           <div className="flex items-start gap-3">
-            <div className="text-amber-500 mt-0.5 flex-shrink-0">
+            <div className="text-sv-teal mt-0.5 flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-amber-800">Need help after 4pm or on weekends?</p>
-              <p className="text-xs text-amber-700 mt-1">After-hours and weekend support is available exclusively for Elite Plus members.</p>
+              <p className="text-sm font-semibold text-sv-dark">Need help after 4pm or on weekends?</p>
+              <p className="text-xs text-sv-dark/70 mt-1">After-hours and weekend support is available exclusively for Elite Plus members.</p>
               {setScreen && (
                 <button
                   onClick={() => setScreen(Screen.MEMBERSHIP)}
-                  className="mt-2 text-xs font-bold text-amber-700 hover:text-amber-900 underline"
+                  className="mt-2 text-xs font-bold text-sv-teal hover:text-sv-teal-dark underline"
                 >
                   View membership options →
                 </button>
