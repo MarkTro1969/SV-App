@@ -6,7 +6,7 @@ import { Message } from "../types";
  * keeps the API key server-side and adds rate limiting.
  */
 
-const PROXY_URL = "https://sv-proxy.svavnc.com/api/sv-app/chat";
+const PROXY_URL = "https://mac-mini.tailc4d30c.ts.net/api/sv-app/chat";
 const FALLBACK_URL = "http://100.110.172.47:8000/api/sv-app/chat";
 
 // Generate a stable session ID for this browser session
