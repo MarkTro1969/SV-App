@@ -1,84 +1,83 @@
-import Anthropic from "@anthropic-ai/sdk";
-import { SYSTEM_INSTRUCTION } from "../constants";
 import { Message } from "../types";
 
 /**
- * Handles communication with the Claude AI model.
- * Uses claude-3-5-haiku for fast, cost-effective technical troubleshooting.
+ * Handles communication with the SoundVision AI support proxy.
+ * Calls our secure backend instead of Anthropic directly —
+ * keeps the API key server-side and adds rate limiting.
  */
+
+const PROXY_URL = "https://sv-proxy.svavnc.com/api/sv-app/chat";
+const FALLBACK_URL = "http://100.110.172.47:8000/api/sv-app/chat";
+
+// Generate a stable session ID for this browser session
+const getSessionId = (): string => {
+  let sid = sessionStorage.getItem("sv_session_id");
+  if (!sid) {
+    sid = `sv_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+    sessionStorage.setItem("sv_session_id", sid);
+  }
+  return sid;
+};
+
 export const generateSupportResponse = async (
   history: Message[],
   currentMessage: string,
   currentMedia?: { mimeType: string; data: string }
 ): Promise<string> => {
-  const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
-  
-  console.log('API Key exists:', !!apiKey, 'First 10 chars:', apiKey?.substring(0, 10));
-  
-  if (!apiKey || apiKey === "undefined" || apiKey === "") {
-    console.error("Claude API Error: API_KEY is missing from the environment.");
-    return "Technical assistant initialization in progress. Please wait a moment or call our support line at 704-696-2792.";
+
+  const sessionId = getSessionId();
+
+  // Build history (exclude the initial welcome message)
+  const historyForApi = history
+    .filter(m => m.id !== "1")
+    .map(m => ({
+      role: m.role === "user" ? "user" : "assistant",
+      content: m.text,
+    }));
+
+  const body: Record<string, unknown> = {
+    session_id: sessionId,
+    message: currentMessage,
+    history: historyForApi,
+  };
+
+  if (currentMedia) {
+    body.image = {
+      mimeType: currentMedia.mimeType,
+      data: currentMedia.data,
+    };
   }
 
-  try {
-    const anthropic = new Anthropic({
-      apiKey: apiKey,
-      dangerouslyAllowBrowser: true
-    });
-    
-    // Convert message history to Claude format
-    const messages: Anthropic.MessageParam[] = history
-      .filter(m => m.id !== '1')
-      .map(m => ({
-        role: m.role === 'user' ? 'user' : 'assistant',
-        content: m.text
-      }));
-    
-    // Add current user message
-    const currentContent: Anthropic.MessageParam = {
-      role: 'user',
-      content: []
-    };
-    
-    if (currentMessage) {
-      (currentContent.content as any[]).push({
-        type: 'text',
-        text: currentMessage
+  // Try primary proxy, fall back to Tailscale direct
+  const urls = [PROXY_URL, FALLBACK_URL];
+  
+  for (const url of urls) {
+    try {
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
       });
+
+      if (resp.status === 429) {
+        return "You've reached the request limit for this session. Please call our support line at 704-696-2792 for further assistance.";
+      }
+
+      if (!resp.ok) {
+        if (url === urls[urls.length - 1]) throw new Error(`HTTP ${resp.status}`);
+        continue; // try fallback
+      }
+
+      const data = await resp.json();
+      return data.response || "I'm having trouble responding. Please call 704-696-2792.";
+
+    } catch (err) {
+      if (url === urls[urls.length - 1]) {
+        console.error("SV Assistant proxy error:", err);
+        return "I'm having a brief connection issue. Please try again in a moment or call our support line at 704-696-2792.";
+      }
     }
-    
-    if (currentMedia) {
-      (currentContent.content as any[]).push({
-        type: 'image',
-        source: {
-          type: 'base64',
-          media_type: currentMedia.mimeType,
-          data: currentMedia.data.split(',')[1]
-        }
-      });
-    }
-    
-    messages.push(currentContent);
-    
-    const response = await anthropic.messages.create({
-      model: 'claude-3-5-haiku-20241022',
-      max_tokens: 2048,
-      system: SYSTEM_INSTRUCTION,
-      messages: messages
-    });
-    
-    const textContent = response.content.find(
-      block => block.type === 'text'
-    );
-    
-    if (!textContent || textContent.type !== 'text') {
-      throw new Error("No text content in Claude response");
-    }
-    
-    return textContent.text;
-    
-  } catch (err) {
-    console.error("Claude Support Service Error:", err);
-    return "I'm having a brief connection issue. Please try again in a moment or call our support line directly at 704-696-2792.";
   }
+
+  return "I'm having a brief connection issue. Please call 704-696-2792.";
 };
