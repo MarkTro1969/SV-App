@@ -1,27 +1,16 @@
 {
-  "headers": [
-    {
-      "source": "/(.*).tsx",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
-      ]
-    },
-    {
-      "source": "/(.*).ts",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
-      ]
+  "functions": {
+    "api/chat.ts": {
+      "maxDuration": 30
     }
-  ],
+  },
   "rewrites": [
     {
-      "source": "/((?!.*\\.).*)",
+      "source": "/api/chat",
+      "destination": "/api/chat.ts"
+    },
+    {
+      "source": "/((?!api/)(?!.*\\.).*)",
       "destination": "/index.html"
     }
   ]
