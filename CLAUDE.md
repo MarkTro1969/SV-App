@@ -27,6 +27,15 @@ Customer-facing PWA at https://service.svavnc.com. Clients describe A/V issues a
 ## Session notes / activity log
 See `CLAUDE_NOTES.md` for project history and the latest 30-day activity snapshot.
 
+## Weekly activity cron (Mac Mini)
+- **Script:** `scripts/weekly_activity_post.py` — stdlib-only (sqlite3 + urllib), dry-run with `--dry-run`.
+- **Schedule:** crontab entry `0 8 * * 3` (Wednesdays 8:00 AM ET, system TZ).
+- **Destination:** `#sv-service` (channel ID `C8LNJPFV0`), tags `<!subteam^SQW0AUU67|service_team>`.
+- **Data source:** reads `~/Projects/marks-personal-agent/data/emails.db` (last 7 days of `sv_app_inquiries`).
+- **Auth:** reuses `SLACK_BOT_TOKEN` from `~/Projects/marks-personal-agent/.env`.
+- **Log:** `logs/weekly_activity.log`.
+- **Heads-up (macOS 15+):** if cron fails silently, `/usr/sbin/cron` likely needs Full Disk Access in System Settings → Privacy & Security.
+
 ## Related
 - See memory: `~/.claude/projects/-Users-mark1/memory/sv-service-app.md`
 - Slack usergroups (for posting updates about this project): `slack_usergroups.md`
