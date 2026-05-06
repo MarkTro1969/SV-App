@@ -8,6 +8,7 @@ import { ContactOptions } from './components/ContactOptions';
 import { Feedback } from './components/Feedback';
 import ExpertHelpFAQ from './components/ExpertHelpFAQ';
 import { ServiceMembership } from './components/ServiceMembership';
+import { ProactiveReview } from './components/ProactiveReview';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>(Screen.DASHBOARD);
@@ -54,6 +55,8 @@ export default function App() {
         return <ExpertHelpFAQ navigateToSmartChat={navigateToSmartChat} setScreen={setCurrentScreen} />;
       case Screen.MEMBERSHIP:
         return <ServiceMembership />;
+      case Screen.PROACTIVE_REVIEW:
+        return <ProactiveReview />;
       default:
         return <Dashboard setScreen={setCurrentScreen} />;
     }

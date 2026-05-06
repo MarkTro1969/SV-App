@@ -208,6 +208,25 @@ export const Dashboard: React.FC<DashboardProps> = ({ setScreen }) => {
           </div>
         </button>
 
+        {/* Proactive System Review */}
+        <button
+          onClick={() => setScreen(Screen.PROACTIVE_REVIEW)}
+          className="bg-white border border-slate-200 p-5 rounded-[1.75rem] shadow-sm hover:border-sv-teal transition-all text-left group active:scale-[0.98] flex items-center gap-4"
+        >
+          <div className="text-sv-teal flex-shrink-0 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div className="flex-1">
+            <h3 className="text-lg font-bold text-sv-dark">Proactive System Review</h3>
+            <p className="text-xs text-slate-500 font-medium mt-0.5">Schedule a complimentary check-up of your system.</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-slate-300 group-hover:text-sv-teal transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
         {/* Rotating Tip/Reminder */}
         <div className="bg-slate-100 border border-slate-200 rounded-2xl p-4">
           <div className="flex items-start gap-3">
