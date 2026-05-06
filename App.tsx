@@ -29,6 +29,12 @@ export default function App() {
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
   }, []);
 
+  // Scroll back to top whenever the screen changes
+  useEffect(() => {
+    document.getElementById('root')?.scrollTo(0, 0);
+    window.scrollTo(0, 0);
+  }, [currentScreen]);
+
   const handleBack = () => {
     setCurrentScreen(Screen.DASHBOARD);
     setChatKey(prev => prev + 1); // Force SmartChat to remount when going back
